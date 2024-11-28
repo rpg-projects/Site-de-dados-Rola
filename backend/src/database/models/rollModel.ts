@@ -37,7 +37,7 @@ const rollSchema = new Schema({
     type: Number,
     required: true,
   },
-  createdAt: {
+  created_at: {
     type: Date,
     default: new Date(),
   },
