@@ -14,7 +14,7 @@ const charSchema = new Schema({
     type: String,
     required: true,
   },
-  userId: {
+  user_id: {
     type: String,
     required: true,
   },
