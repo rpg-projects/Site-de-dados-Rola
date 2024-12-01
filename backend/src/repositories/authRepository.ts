@@ -3,9 +3,9 @@ import { ICompleteUser } from "../types/authDTOs";
 import { IUser } from "../types/userDTOs";
 
 export default class AuthRepository {
-  async getByDiscord(discord_tag: string): Promise<ICompleteUser> {
+  async getByUsername(username: string): Promise<ICompleteUser> {
     return userModel
-      .findOne({ discord_tag }, "_id name discord_tag password")
+      .findOne({ username }, "_id name password")
       .exec() as unknown as ICompleteUser;
   }
 

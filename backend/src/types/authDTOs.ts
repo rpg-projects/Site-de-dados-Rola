@@ -1,5 +1,5 @@
 export interface IAuthDTO {
-  discord_tag: string;
+  username: string;
   password: string;
 }
 
@@ -10,7 +10,6 @@ export interface IAuthPayload {
 
 export interface ICompleteUser {
   _id: string;
-  name: string;
-  discord_tag: string;
+  username: string;
   password: string;
 }

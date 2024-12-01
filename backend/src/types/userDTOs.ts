@@ -1,13 +1,16 @@
 export interface ICreateUserDTO {
-  name: string;
+  email: string;
+  player_id: string;
   password: string;
 }
 
 export interface IUpdateUserDTO {
-  name?: string;
+  email?: string;
+  player_id?: string;
 }
 
 export interface IUser {
   _id: string;
-  name: string;
+  email: string;
+  player_id: string;
 }

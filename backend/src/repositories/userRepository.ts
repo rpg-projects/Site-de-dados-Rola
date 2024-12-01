@@ -13,15 +13,27 @@ export default class UserRepository {
     if (!mongoose.isValidObjectId(id))
       throw new BaseError("User can't be found", 404);
 
-    return userModel.findById(id, "_id name").exec() as unknown as IUser;
+    return userModel
+      .findById(id, "_id email player_id")
+      .exec() as unknown as IUser;
   }
 
-  async getByName(name: string): Promise<IUser> {
-    return userModel.findOne({ name }, "_id name").exec() as unknown as IUser;
+  async getByEmail(email: string): Promise<IUser | undefined> {
+    return userModel
+      .findOne({ email }, "_id email player_id")
+      .exec() as unknown as IUser;
+  }
+
+  async getByDiscordTag(tag: string): Promise<IUser | undefined> {
+    return userModel
+      .findOne({ tag }, "_id email player_id")
+      .exec() as unknown as IUser;
   }
 
   async getAll(): Promise<IUser[]> {
-    return userModel.find({}, "_id name").exec() as unknown as IUser[];
+    return userModel
+      .find({}, "_id email player_id")
+      .exec() as unknown as IUser[];
   }
 
   async updateById(_id: string, user: IUpdateUserDTO) {

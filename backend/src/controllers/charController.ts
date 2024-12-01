@@ -37,8 +37,9 @@ export default class CharController {
     }
   }
 
-  async getChars(req: Request, res: Response) {
-    const result = await service.getAll();
+  async getCharsByUser(req: Request, res: Response) {
+    const { user_id } = req.params;
+    const result = await service.getByUser(user_id);
 
     return res.status(httpStatusCodes.OK).json(result);
   }

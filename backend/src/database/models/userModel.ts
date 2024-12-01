@@ -3,18 +3,14 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-// USER {
-//   "id": "uuid",
-//   "nickname": "AresFan42",
-//   “password”: “17864201”,
-//   "createdAt": "2024-11-28T12:00:00Z",
-//   "characters": ["char1", "char2"]
-//   }
-
 const userSchema = new Schema({
-  name: {
+  email: {
     type: String,
     required: true,
+  },
+  player_id: {
+    type: String,
+    required: false,
   },
   password: {
     type: String,

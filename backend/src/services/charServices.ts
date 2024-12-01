@@ -9,25 +9,27 @@ const repository = new CharRepository();
 export default class CharService {
   async createChar(char: ICreateCharDTO): Promise<IChar> {
     const user = await userRepository.getById(char.user_id);
-    if (!user) throw new NotFound("user");
+    if (!user) throw new NotFound("User");
 
     return repository.create(char);
   }
 
   async getById(_id: string): Promise<IChar> {
     const char = await repository.getById(_id);
-    if (!char) throw new NotFound("char");
+    if (!char) throw new NotFound("Char");
 
     return char;
   }
 
-  async getAll(): Promise<IChar[]> {
-    return repository.getAll();
+  async getByUser(user_id: string): Promise<IChar[]> {
+    const chars = await repository.getAll();
+
+    return chars.filter((char) => char.user_id == user_id);
   }
 
   async updateById(_id: string, char: IUpdateCharDTO): Promise<IChar> {
     const wasUpdated = await repository.updateById(_id, char);
-    if (!wasUpdated) throw new NotFound("char");
+    if (!wasUpdated) throw new NotFound("Char");
 
     return repository.getById(_id);
   }

@@ -7,8 +7,8 @@ const repository = new MessageRepository();
 
 export default class MessageService {
   async createMessage(Message: ICreateMessageDTO): Promise<IMessage> {
-    const user = await userRepository.getById(Message.user_id);
-    if (!user) throw new NotFound("user");
+    // const user = await userRepository.getById(Message.user_id);
+    // if (!user) throw new NotFound("user");
 
     return repository.create(Message);
   }

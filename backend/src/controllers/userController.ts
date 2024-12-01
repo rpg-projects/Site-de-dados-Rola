@@ -13,9 +13,11 @@ export default class UserController {
     try {
       const result = await service.createUser(user);
 
-      return res
-        .status(httpStatusCodes.CREATED)
-        .json({ id: result._id, nome: result.name });
+      return res.status(httpStatusCodes.CREATED).json({
+        id: result._id,
+        email: result.email,
+        player_id: result.player_id,
+      });
     } catch (error) {
       return res
         .status(error.status ?? httpStatusCodes.BAD_REQUEST)

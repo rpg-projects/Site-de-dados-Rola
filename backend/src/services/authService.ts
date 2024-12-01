@@ -10,9 +10,9 @@ const userRepository = new UserRepository();
 
 export default class AuthService {
   async login(loginRequest: IAuthDTO): Promise<IAuthPayload> {
-    const { discord_tag, password } = loginRequest;
+    const { username, password } = loginRequest;
 
-    const user = await repository.getByDiscord(discord_tag);
+    const user = await repository.getByUsername(username);
     if (!user) {
       throw new BadRequest();
     }
@@ -27,8 +27,8 @@ export default class AuthService {
     return { token, user_id: user._id };
   }
 
-  async recoverByDiscordTag(discord_tag: string): Promise<string> {
-    const user = await userRepository.getByDiscord(discord_tag);
+  async recoverByDiscordTag(username: string): Promise<string> {
+    const user = await userRepository.getByDiscordTag(username);
     if (!user) {
       throw new BadRequest();
     }

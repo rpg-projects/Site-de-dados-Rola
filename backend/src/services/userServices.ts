@@ -2,20 +2,26 @@ import { ICreateUserDTO, IUpdateUserDTO, IUser } from "../types/userDTOs";
 import { InternalError, NotFound } from "../responseHandlers/errorHandlers";
 import UserRepository from "../repositories/userRepository";
 import bcrypt from "bcrypt";
+import CharService from "./charServices";
 
 const repository = new UserRepository();
+const charService = new CharService();
 
 export default class UserService {
   async createUser(user: ICreateUserDTO): Promise<IUser> {
-    //name has to be unique
-    const nameExists = await repository.getByName(user.name);
-    if (nameExists) throw new InternalError();
+    const emailExists = await repository.getByEmail(user.email);
+    if (emailExists) throw new InternalError();
 
-    const { name } = user;
+    if (user.player_id) {
+      const discordExists = await repository.getByDiscordTag(user.player_id);
+      if (discordExists) throw new InternalError();
+    }
+
     const password = await bcrypt.hash(user.password, 10);
 
     const newUser: ICreateUserDTO = {
-      name,
+      email: user.email,
+      player_id: user.player_id,
       password,
     };
 
@@ -41,6 +47,13 @@ export default class UserService {
   }
 
   async deleteById(_id: string): Promise<string> {
+    // deletar chars do user!!
+    const chars = await charService.getByUser(_id);
+
+    for (const char of chars) {
+      await charService.deleteById(char._id);
+    }
+
     const userDeleted = await repository.deleteById(_id);
     if (userDeleted.deletedCount !== 1) throw new NotFound("User");
 
