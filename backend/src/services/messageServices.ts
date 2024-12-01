@@ -2,15 +2,20 @@ import { ICreateMessageDTO, IMessage } from "../types/messageDTOs";
 import { InternalError, NotFound } from "../responseHandlers/errorHandlers";
 import UserRepository from "../repositories/userRepository";
 import MessageRepository from "../repositories/messageRepository";
+import RoomRepository from "../repositories/roomRepository";
 
 const repository = new MessageRepository();
+const userRepository = new UserRepository();
+const roomRepository = new RoomRepository();
 
 export default class MessageService {
-  async createMessage(Message: ICreateMessageDTO): Promise<IMessage> {
-    // const user = await userRepository.getById(Message.user_id);
-    // if (!user) throw new NotFound("user");
+  async createMessage(message: ICreateMessageDTO): Promise<IMessage> {
+    const user = await userRepository.getById(message.user_id);
+    if (!user) throw new NotFound("User");
+    const room = await roomRepository.getById(message.room_id);
+    if (!room) throw new NotFound("Room");
 
-    return repository.create(Message);
+    return repository.create(message);
   }
 
   async getById(_id: string): Promise<IMessage> {
@@ -22,12 +27,5 @@ export default class MessageService {
 
   async getAll(): Promise<IMessage[]> {
     return repository.getAll();
-  }
-
-  async deleteById(_id: string): Promise<string> {
-    const messageDeleted = await repository.deleteById(_id);
-    if (messageDeleted.deletedCount !== 1) throw new NotFound("Message");
-
-    return _id;
   }
 }
