@@ -32,6 +32,7 @@ export const InputWrapper = styled.div`
 export const StyledInput = styled(Input)`
   width: 100%;
   margin-bottom: 20em !important;
+  border: #908378 solid 3px !important;
 `;
 
 export const ErrorText = styled.span`

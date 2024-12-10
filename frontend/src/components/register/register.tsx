@@ -17,7 +17,7 @@ import {
   StyledInput,
 } from "../commons";
 
-import "./login.css";
+import "./register.css";
 
 import { useSignIn } from "react-auth-kit";
 import { useFormik } from "formik";
@@ -27,7 +27,7 @@ import { useNavigate } from "react-router-dom";
 import { LogoBox } from "../logo-box/logoBox";
 // import * as Yup from "yup";
 
-function Login(props: any) {
+function Register(props: any) {
   const [error, setError] = useState("");
   const signIn = useSignIn();
 
@@ -74,14 +74,16 @@ function Login(props: any) {
 
   return (
     <Container className="outer-cont">
-      <div className="login-box">
-        <LogoBox className="login-logo-box" />
-        <div className="login-image">
-          <img src="../../assets/login-image.jpg" alt="" />
+      <div className="register-box">
+        <LogoBox style={{ marginTop: "-60%" }} />
+        <div className="register-image">
+          <img src="../../assets/register-image.jpg" alt="" />
         </div>
-        <div className="login-form">
+        <div className="register-form">
           <form onSubmit={formik.handleSubmit}>
-            <h1 style={{ color: "#4b3931" }}>LOGIN</h1>
+            <h1 style={{ color: "#4b3931", textAlign: "center" }}>
+              NOVO USUÁRIO
+            </h1>
             <ErrorText>{error}</ErrorText>
             <InputWrapper
               style={{
@@ -104,31 +106,60 @@ function Login(props: any) {
               }}
             >
               <StyledInput
+                name="Id do Player"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                placeholder="Id do Player"
+                clearOnEscape
+                size="large"
+                type="text"
+              />
+            </InputWrapper>
+            <InputWrapper
+              style={{
+                fontFamily: "Sorts Mill Goudy",
+              }}
+            >
+              <StyledInput
                 name="password"
                 value={formik.values.password}
                 onChange={formik.handleChange}
-                placeholder="Password"
+                placeholder="Senha"
                 clearOnEscape
                 size="large"
                 type="password"
               />
             </InputWrapper>
-            <a style={{ color: "black" }} href="/sign-up">
-              cadastrar novo usuário
-            </a>
+            <InputWrapper
+              style={{
+                fontFamily: "Sorts Mill Goudy",
+              }}
+            >
+              <StyledInput
+                name="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                placeholder="Confirmação de senha"
+                clearOnEscape
+                size="large"
+                type="password"
+              />
+            </InputWrapper>
+
             <InputWrapper>
               <Button
                 style={{
                   backgroundColor: "#DBC9B9",
                   border: "#908378 solid 3px",
                   width: "50%",
+                  marginTop: "4%",
                 }}
-                className="login-button"
+                className="register-button"
                 size="large"
                 kind="primary"
                 isLoading={formik.isSubmitting}
               >
-                <span style={{ color: "#4B3931" }}>ENTRAR</span>
+                <span style={{ color: "#4B3931" }}>CADASTRAR</span>
               </Button>
             </InputWrapper>
           </form>
@@ -138,4 +169,4 @@ function Login(props: any) {
   );
 }
 
-export { Login };
+export { Register };

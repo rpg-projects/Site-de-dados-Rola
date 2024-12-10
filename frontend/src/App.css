@@ -1,3 +1,29 @@
+.sorts-mill-goudy-regular {
+  font-family: "Sorts Mill Goudy", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.sorts-mill-goudy-regular-italic {
+  font-family: "Sorts Mill Goudy", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.graduate-regular {
+  font-family: "Graduate", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+*,
+h1,
+span,
+p {
+  font-family: "Sorts Mill Goudy", serif;
+  color: #4b3931 !important;
+}
+
 .App {
   text-align: center;
 }
