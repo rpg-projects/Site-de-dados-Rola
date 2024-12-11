@@ -10,9 +10,10 @@ const userRepository = new UserRepository();
 
 export default class AuthService {
   async login(loginRequest: IAuthDTO): Promise<IAuthPayload> {
-    const { username, password } = loginRequest;
+    const { email, password } = loginRequest;
 
-    const user = await repository.getByUsername(username);
+    const user = await repository.getByEmail(email);
+    console.log("user :>> ", user);
     if (!user) {
       throw new BadRequest();
     }

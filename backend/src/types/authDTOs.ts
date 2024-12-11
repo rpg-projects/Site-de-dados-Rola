@@ -1,5 +1,5 @@
 export interface IAuthDTO {
-  username: string;
+  email: string;
   password: string;
 }
 
@@ -10,6 +10,6 @@ export interface IAuthPayload {
 
 export interface ICompleteUser {
   _id: string;
-  username: string;
+  email: string;
   password: string;
 }

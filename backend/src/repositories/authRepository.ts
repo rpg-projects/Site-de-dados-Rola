@@ -3,9 +3,9 @@ import { ICompleteUser } from "../types/authDTOs";
 import { IUser } from "../types/userDTOs";
 
 export default class AuthRepository {
-  async getByUsername(username: string): Promise<ICompleteUser> {
+  async getByEmail(email: string): Promise<ICompleteUser> {
     return userModel
-      .findOne({ username }, "_id name password")
+      .findOne({ email }, "_id email player_id password")
       .exec() as unknown as ICompleteUser;
   }
 
