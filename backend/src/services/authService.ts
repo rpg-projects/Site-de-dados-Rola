@@ -13,7 +13,6 @@ export default class AuthService {
     const { email, password } = loginRequest;
 
     const user = await repository.getByEmail(email);
-    console.log("user :>> ", user);
     if (!user) {
       throw new BadRequest();
     }
@@ -25,7 +24,7 @@ export default class AuthService {
 
     const token = signToken(user._id);
 
-    return { token, user_id: user._id };
+    return { token, user_id: user._id, player_id: user.player_id };
   }
 
   async recoverByDiscordTag(username: string): Promise<string> {

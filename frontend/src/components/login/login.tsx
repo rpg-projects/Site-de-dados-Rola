@@ -48,9 +48,9 @@ function Login(props: any) {
         expiresIn: 3600,
         tokenType: "Bearer",
         authState: {
-          id: response.data.id,
+          id: response.data.user_id,
           email: values.email,
-          name: response.data.name,
+          playerId: response.data.player_id,
         },
       });
 

@@ -37,24 +37,26 @@ function Register(props: any) {
     setError("");
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/auth/login",
-        values
-      );
-
-      //salva nos cookies e autentica
-      signIn({
-        token: response.data.token,
-        expiresIn: 3600,
-        tokenType: "Bearer",
-        authState: {
-          id: response.data.id,
-          email: values.email,
-          name: response.data.name,
-        },
-      });
-
-      navigate("/");
+      // const userCreated = await axios.post(
+      //   "http://localhost:8080/users",
+      //   values
+      // );
+      // const response = await axios.post(
+      //   "http://localhost:8080/auth/login",
+      //   values
+      // );
+      // //salva nos cookies e autentica
+      // signIn({
+      //   token: response.data.token,
+      //   expiresIn: 3600,
+      //   tokenType: "Bearer",
+      //   authState: {
+      //     id: response.data.id,
+      //     email: values.email,
+      //     name: response.data.name,
+      //   },
+      // });
+      // navigate("/");
     } catch (err) {
       if (err && err instanceof AxiosError)
         setError(err.response?.data.message);

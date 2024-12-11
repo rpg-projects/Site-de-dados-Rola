@@ -15,15 +15,15 @@ import { useState } from "react";
 
 function Home() {
   const auth = useAuthUser();
-  const singOut = useSignOut();
+  const signOut = useSignOut();
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
   const id = auth()!.id;
-  const name = auth()!.name;
+  const playerId = auth()!.playerId;
 
   const logout = () => {
-    singOut();
+    signOut();
     navigate("/login");
   };
 
@@ -42,68 +42,12 @@ function Home() {
     }
   };
 
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      name: "",
-      password: "",
-    },
-    onSubmit,
-  });
-
   return (
     <Container>
-      <HeadingXXLarge color="secondary500">Welcome {name}</HeadingXXLarge>
-      <Container>
-        <InnerContainer>
-          <form onSubmit={formik.handleSubmit}>
-            <HeadingMedium>Atualizar perfil</HeadingMedium>
-            <ErrorText>{error}</ErrorText>
-            <InputWrapper>
-              <StyledInput
-                name="email"
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                placeholder="Email"
-                clearOnEscape
-                size="large"
-                type="email"
-              />
-            </InputWrapper>
-            <InputWrapper>
-              <StyledInput
-                name="name"
-                value={formik.values.name}
-                onChange={formik.handleChange}
-                placeholder="Nome"
-                clearOnEscape
-                size="large"
-                type="name"
-              />
-            </InputWrapper>
-            <InputWrapper>
-              <StyledInput
-                name="password"
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                placeholder="Senha"
-                clearOnEscape
-                size="large"
-                type="password"
-              />
-            </InputWrapper>
-            <InputWrapper>
-              <Button
-                size="default"
-                kind="primary"
-                isLoading={formik.isSubmitting}
-              >
-                Enviar
-              </Button>
-            </InputWrapper>
-          </form>
-        </InnerContainer>
-      </Container>
+      <HeadingXXLarge color="secondary500">
+        Welcome {playerId[0] + playerId.slice(1).toLowerCase()}
+      </HeadingXXLarge>
+
       <Button kind="secondary" onClick={logout}>
         Logout
       </Button>
