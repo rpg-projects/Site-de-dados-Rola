@@ -3,8 +3,10 @@ import { Request, Response } from "express";
 import MessageService from "../services/messageServices";
 import { httpStatusCodes } from "../responseHandlers/statusCodes";
 import { ICreateMessageDTO } from "../types/messageDTOs";
+import RollService from "../services/rollService";
 
 const service = new MessageService();
+const rollService = new RollService();
 
 export default class MessageController {
   async createMessage(req: Request, res: Response) {
@@ -12,6 +14,12 @@ export default class MessageController {
 
     try {
       const result = await service.createMessage(message);
+
+      await rollService.createRoll({
+        room_id: result.room_id,
+        user_id: result.user_id,
+        text: result.text,
+      });
 
       return res.status(httpStatusCodes.CREATED).json(result);
     } catch (error) {
