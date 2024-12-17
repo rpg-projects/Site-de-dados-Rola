@@ -1,8 +1,9 @@
 .box {
   position: absolute;
-  right: 0;
-  margin-right: 1%;
-  margin-top: -50%;
+  top: 0; /* Aligns the box to the top */
+  right: 0; /* Aligns the box to the right */
+  margin-right: 2%;
+  margin-top: -2rem;
   z-index: 3; /* Optional: Ensure the box is above other content */
   display: flex;
 }

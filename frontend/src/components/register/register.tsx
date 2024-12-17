@@ -77,21 +77,15 @@ function Register(props: any) {
   return (
     <Container className="outer-cont">
       <div className="register-box">
-        <LogoBox style={{ marginTop: "-60%" }} />
+        <LogoBox style={{ marginTop: "-1rem" }} />
         <div className="register-image">
           <img src="../../assets/register-image.jpg" alt="" />
         </div>
         <div className="register-form">
           <form onSubmit={formik.handleSubmit}>
-            <h1 style={{ color: "#4b3931", textAlign: "center" }}>
-              NOVO USUÁRIO
-            </h1>
+            <h1 className="register-title">NOVO USUÁRIO</h1>
             <ErrorText>{error}</ErrorText>
-            <InputWrapper
-              style={{
-                fontFamily: "Sorts Mill Goudy",
-              }}
-            >
+            <InputWrapper>
               <StyledInput
                 name="email"
                 value={formik.values.email}
@@ -102,11 +96,7 @@ function Register(props: any) {
                 type="email"
               />
             </InputWrapper>
-            <InputWrapper
-              style={{
-                fontFamily: "Sorts Mill Goudy",
-              }}
-            >
+            <InputWrapper>
               <StyledInput
                 name="Id do Player"
                 value={formik.values.password}
@@ -117,11 +107,7 @@ function Register(props: any) {
                 type="text"
               />
             </InputWrapper>
-            <InputWrapper
-              style={{
-                fontFamily: "Sorts Mill Goudy",
-              }}
-            >
+            <InputWrapper>
               <StyledInput
                 name="password"
                 value={formik.values.password}
@@ -134,7 +120,7 @@ function Register(props: any) {
             </InputWrapper>
             <InputWrapper
               style={{
-                fontFamily: "Sorts Mill Goudy",
+                width: "16rem",
               }}
             >
               <StyledInput
@@ -153,7 +139,7 @@ function Register(props: any) {
                 style={{
                   backgroundColor: "#DBC9B9",
                   border: "#908378 solid 3px",
-                  width: "50%",
+                  width: "60%",
                   marginTop: "4%",
                 }}
                 className="register-button"

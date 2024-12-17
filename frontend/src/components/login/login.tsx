@@ -19,10 +19,10 @@ import {
 
 import "./login.css";
 
-import { useSignIn } from "react-auth-kit";
+import { useAuthUser, useSignIn } from "react-auth-kit";
 import { useFormik } from "formik";
 import axios, { AxiosError } from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LogoBox } from "../logo-box/logoBox";
 // import * as Yup from "yup";
@@ -32,6 +32,15 @@ function Login(props: any) {
   const signIn = useSignIn();
 
   const navigate = useNavigate();
+
+  // Check if user is already authenticated
+  const auth = useAuthUser();
+
+  useEffect(() => {
+    if (auth()) {
+      navigate("/"); // Redirect to home page if authenticated
+    }
+  }, [auth, navigate]);
 
   const onSubmit = async (values: any) => {
     setError("");
@@ -75,7 +84,7 @@ function Login(props: any) {
   return (
     <Container className="outer-cont">
       <div className="login-box">
-        <LogoBox className="login-logo-box" />
+        <LogoBox />
         <div className="login-image">
           <img src="../../assets/login-image.jpg" alt="" />
         </div>

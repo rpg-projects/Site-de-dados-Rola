@@ -7,6 +7,7 @@ import { Login } from "./components/login/login";
 import { Home } from "./components/home";
 import { RequireAuth } from "react-auth-kit";
 import { Register } from "./components/register/register";
+import Room from "./components/room/room";
 
 const AppContainer = styled.div`
   width: 100%;
@@ -22,6 +23,14 @@ function App() {
           element={
             <RequireAuth loginPath="/login">
               <Home />
+            </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="/room/:roomName"
+          element={
+            <RequireAuth loginPath="/login">
+              <Room />
             </RequireAuth>
           }
         ></Route>
