@@ -18,9 +18,10 @@ export default class MessageRepository {
       .exec() as unknown as IMessage;
   }
 
-  async getAll(): Promise<IMessage[]> {
+  async getByRoom(room_id): Promise<IMessage[]> {
     return messageModel
-      .find({}, "_id name room_id user_id roll_id text created_at")
+      .find({ room_id }, "_id name room_id user_id roll_id text created_at")
+      .sort({ created_at: "asc" })
       .exec() as unknown as IMessage[];
   }
 

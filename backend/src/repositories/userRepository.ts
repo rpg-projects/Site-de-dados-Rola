@@ -14,7 +14,7 @@ export default class UserRepository {
       throw new BaseError("User can't be found", 404);
 
     return userModel
-      .findById(id, "_id email player_id")
+      .findById(id, "_id email player_id activeChar")
       .exec() as unknown as IUser;
   }
 
@@ -26,13 +26,13 @@ export default class UserRepository {
 
   async getByDiscordTag(tag: string): Promise<IUser | undefined> {
     return userModel
-      .findOne({ tag }, "_id email player_id")
+      .findOne({ tag }, "_id email player_id activeChar")
       .exec() as unknown as IUser;
   }
 
   async getAll(): Promise<IUser[]> {
     return userModel
-      .find({}, "_id email player_id")
+      .find({}, "_id email player_id activeChar")
       .exec() as unknown as IUser[];
   }
 

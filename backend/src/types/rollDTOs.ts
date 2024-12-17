@@ -7,9 +7,8 @@ export interface IMessageToRollDTO {
 export interface ICreateRollDTO {
   room_id: string;
   user_id: string;
-  char_id?: string;
   dice: number;
-  mod: number;
+  mod?: number;
   result: number;
 }
 
@@ -19,7 +18,7 @@ export interface IRoll {
   user_id: string;
   char_id?: string;
   dice: number;
-  mod: number;
+  mod?: number;
   result: number;
   created_at: Date;
 }

@@ -20,8 +20,8 @@ const userSchema = new Schema({
     type: Date,
     default: new Date(),
   },
-  chars: {
-    type: [String],
+  activeChar: {
+    type: String,
     required: false,
   },
 });

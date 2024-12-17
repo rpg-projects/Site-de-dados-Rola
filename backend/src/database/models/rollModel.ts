@@ -31,7 +31,7 @@ const rollSchema = new Schema({
   },
   mod: {
     type: Number,
-    required: true,
+    required: false,
   },
   result: {
     type: Number,

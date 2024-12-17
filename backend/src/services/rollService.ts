@@ -4,6 +4,8 @@ import UserRepository from "../repositories/userRepository";
 import RollRepository from "../repositories/rollRepository";
 import RoomRepository from "../repositories/roomRepository";
 import MessageRepository from "../repositories/messageRepository";
+import { getRandomIntInclusive, isNumeric } from "../utils/helpers";
+import { IUser } from "../types/userDTOs";
 
 const repository = new RollRepository();
 const messageRepository = new MessageRepository();
@@ -20,33 +22,45 @@ const roomRepository = new RoomRepository();
 // }
 
 export default class RollService {
-  async createRoll(messageToRoll: IMessageToRollDTO) {
-    const { user_id, room_id, text } = messageToRoll;
-    console.log("text :>> ", text);
+  async checkForRolls(text: string) {
+    if (text.startsWith("#d")) return true;
+    else return false;
+  }
 
-    const user = await userRepository.getById(messageToRoll.user_id);
+  async createRoll(messageToRoll: IMessageToRollDTO): Promise<IRoll> {
+    const { user_id, room_id, text } = messageToRoll;
+
+    const user = await userRepository.getById(user_id);
     if (!user) throw new NotFound("User");
-    const room = await roomRepository.getById(messageToRoll.room_id);
+    const room = await roomRepository.getById(room_id);
     if (!room) throw new NotFound("Room");
 
     // se tiver dois # pega só o primeiro e o mod
     // onde tiver char, pega a frase seguinte sem o dado
 
     // char não pode ficar guardado no banco... tem que ser ativado na hora.
-    // quando a pessoa mandar o char, eu busco no google drive e aparecem dicas de rolagem?
+    // quando a pessoa mandar o char, eu busco no google drive e aparece a ficha??? e dicas???
 
-    const char = text.includes("/char")
-      ? text.split("/char ")[1].split("#")[0]
-      : undefined;
+    const [diceString, symbol, modString] = text.split("#d")[1].split(" ");
 
-    console.log("char :>> ", char);
+    const dice = getRandomIntInclusive(1, Number(diceString));
+    let mod = 0;
+    if (isNumeric(modString)) mod = Number(modString);
 
-    // const roll : ICreateRollDTO = {
-    //   user_id, room_id
+    let result: number;
+    if (text.includes("+")) result = dice + mod;
+    else if (text.includes("-")) result = dice - mod;
+    else result = dice;
 
-    // }
+    const roll: ICreateRollDTO = {
+      user_id,
+      room_id,
+      dice,
+      mod,
+      result,
+    };
 
-    // return repository.create(roll);
+    return repository.create(roll);
   }
 
   async getById(_id: string): Promise<IRoll> {

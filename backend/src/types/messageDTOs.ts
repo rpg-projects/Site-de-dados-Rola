@@ -2,6 +2,7 @@ export interface ICreateMessageDTO {
   room_id: string;
   user_id: string;
   text: string;
+  roll_id?: string;
 }
 
 export interface IMessage {

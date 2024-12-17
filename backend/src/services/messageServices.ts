@@ -3,6 +3,7 @@ import { InternalError, NotFound } from "../responseHandlers/errorHandlers";
 import UserRepository from "../repositories/userRepository";
 import MessageRepository from "../repositories/messageRepository";
 import RoomRepository from "../repositories/roomRepository";
+import { IUser } from "../types/userDTOs";
 
 const repository = new MessageRepository();
 const userRepository = new UserRepository();
@@ -18,6 +19,19 @@ export default class MessageService {
     return repository.create(message);
   }
 
+  async defineActiveChar(charCheck: ICreateMessageDTO): Promise<IUser> {
+    const { user_id, text } = charCheck;
+
+    const char = text.includes("/char")
+      ? text.split("/char ")[1].split("#")[0]
+      : undefined;
+
+    if (char !== undefined)
+      await userRepository.updateById(user_id, { activeChar: char });
+
+    return userRepository.getById(user_id);
+  }
+
   async getById(_id: string): Promise<IMessage> {
     const message = await repository.getById(_id);
     if (!message) throw new NotFound("Message");
@@ -25,7 +39,7 @@ export default class MessageService {
     return message;
   }
 
-  async getAll(): Promise<IMessage[]> {
-    return repository.getAll();
+  async getByRoom(room_id): Promise<IMessage[]> {
+    return repository.getByRoom(room_id);
   }
 }
