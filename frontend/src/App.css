@@ -24,6 +24,30 @@ p {
   color: #4b3931 !important;
 }
 
+h1 {
+  font-size: x-large;
+}
+
+.bu {
+  padding-right: 8px !important;
+}
+
+.bt {
+  padding-left: 8px !important;
+}
+
+.bs {
+  padding-bottom: 8px !important;
+}
+
+.br {
+  padding-top: 8px !important;
+}
+
+.b1 {
+  font-size: 14px !important;
+}
+
 .App {
   text-align: center;
 }

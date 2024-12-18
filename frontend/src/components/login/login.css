@@ -32,7 +32,8 @@
 .login-box {
   align-items: center;
   justify-content: center;
-  width: 56%;
+  width: 48rem;
+  height: 60%;
   margin-top: -5%;
   background-color: #d9d9d9;
   display: flex;
@@ -42,7 +43,7 @@
 
 .login-image {
   width: 70%;
-  height: 80%;
+  height: 70%;
   background-image: url(../../assets/login-image.jpg);
   background-size: cover;
   background-position: center;
@@ -55,8 +56,8 @@
 }
 
 .login-form {
-  width: 50%;
-  height: 80%;
+  width: 55%;
+  height: 70%;
   background-color: #d9d9d9;
   display: flex;
   flex-direction: column;
@@ -69,6 +70,7 @@
 a {
   text-decoration: none;
   color: white;
+  font-size: 0.8rem;
 }
 
 a:hover {

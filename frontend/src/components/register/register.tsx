@@ -25,7 +25,7 @@ import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LogoBox } from "../logo-box/logoBox";
-// import * as Yup from "yup";
+import * as Yup from "yup";
 
 function Register(props: any) {
   const [error, setError] = useState("");
@@ -33,30 +33,45 @@ function Register(props: any) {
 
   const navigate = useNavigate();
 
+  // Validation schema using Yup
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .required("Email é obrigatório")
+      .email("Endereço de email inválido"),
+    player_id: Yup.string().min(4, "Player_id precisa ter pelo menos 4 letras"),
+    password: Yup.string()
+      .required("Senha é obrigatória")
+      .min(8, "Password must be at least 8 characters long"),
+    confirmPassword: Yup.string()
+      .required("Por favor confirme a senha")
+      .oneOf([Yup.ref("password")], "Senhas diferentes"),
+  });
+
   const onSubmit = async (values: any) => {
     setError("");
 
     try {
-      // const userCreated = await axios.post(
-      //   "http://localhost:8080/users",
-      //   values
-      // );
-      // const response = await axios.post(
-      //   "http://localhost:8080/auth/login",
-      //   values
-      // );
-      // //salva nos cookies e autentica
-      // signIn({
-      //   token: response.data.token,
-      //   expiresIn: 3600,
-      //   tokenType: "Bearer",
-      //   authState: {
-      //     id: response.data.id,
-      //     email: values.email,
-      //     name: response.data.name,
-      //   },
-      // });
-      // navigate("/");
+      const userCreated = await axios.post(
+        "http://localhost:8080/users",
+        values
+      );
+      console.log("userCreated :>> ", userCreated);
+      const response = await axios.post(
+        "http://localhost:8080/auth/login",
+        values
+      );
+      //salva nos cookies e autentica
+      signIn({
+        token: response.data.token,
+        expiresIn: 3600,
+        tokenType: "Bearer",
+        authState: {
+          id: response.data.user_id,
+          email: values.email,
+          playerId: response.data.player_id,
+        },
+      });
+      navigate("/");
     } catch (err) {
       if (err && err instanceof AxiosError)
         setError(err.response?.data.message);
@@ -69,7 +84,9 @@ function Register(props: any) {
   const formik = useFormik({
     initialValues: {
       email: "",
+      player_id: "",
       password: "",
+      passwordConfirm: "",
     },
     onSubmit,
   });
@@ -98,8 +115,8 @@ function Register(props: any) {
             </InputWrapper>
             <InputWrapper>
               <StyledInput
-                name="Id do Player"
-                value={formik.values.password}
+                name="player_id"
+                value={formik.values.player_id}
                 onChange={formik.handleChange}
                 placeholder="Id do Player"
                 clearOnEscape
@@ -124,8 +141,8 @@ function Register(props: any) {
               }}
             >
               <StyledInput
-                name="password"
-                value={formik.values.password}
+                name="passwordConfirm"
+                value={formik.values.passwordConfirm}
                 onChange={formik.handleChange}
                 placeholder="Confirmação de senha"
                 clearOnEscape

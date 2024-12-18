@@ -130,7 +130,8 @@ function Login(props: any) {
                 style={{
                   backgroundColor: "#DBC9B9",
                   border: "#908378 solid 3px",
-                  width: "50%",
+                  width: "70%",
+                  padding: ".8rem",
                 }}
                 className="login-button"
                 size="large"
