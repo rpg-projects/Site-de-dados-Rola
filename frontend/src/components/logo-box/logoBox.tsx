@@ -22,11 +22,17 @@ import "./logoBox.css";
 
 // import * as Yup from "yup";
 
-function LogoBox(props: any) {
+function LogoBox({
+  style,
+  className,
+}: {
+  style?: React.CSSProperties;
+  className?: string;
+}) {
   return (
-    <div className="box" style={props.style}>
+    <div className={`box ${className || ""}`} style={style}>
       <p className="nome">ROLA</p>
-      <img className="img" src={logo} alt="" />
+      <img className="img" src={logo} alt="Logo" />
     </div>
   );
 }

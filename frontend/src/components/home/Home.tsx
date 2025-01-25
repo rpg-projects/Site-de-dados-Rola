@@ -7,11 +7,28 @@ import { useSignOut, useAuthUser } from "react-auth-kit";
 import { Container } from "../commons";
 import { Link } from "react-router-dom"; // Import Link for navigation
 
+import "./home.css";
+import { LogoBox } from "../logo-box/logoBox";
+import styled from "styled-components";
+
 interface Room {
   _id: string;
   name: string;
   created_at: Date;
 }
+
+const CustomButton = styled(Button)`
+  margin: 10px;
+  padding: 8px 16px;
+  color: white !important;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: #554f4b !important; /* Custom background */
+`;
 
 function Home() {
   const auth = useAuthUser();
@@ -53,29 +70,42 @@ function Home() {
   if (error) return <div>{error}</div>;
 
   return (
-    <Container>
-      <HeadingXXLarge color="secondary500">
-        Welcome {playerId[0] + playerId.slice(1).toLowerCase()}
-      </HeadingXXLarge>
-      <div>
-        <h1>Room List</h1>
-        {rooms.length > 0 ? (
-          <ul>
-            {rooms.map((room) => (
-              <li key={room._id}>
-                {/* Link to the room's page */}
-                <Link to={`/room/${room.name}`}>{room.name}</Link>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No rooms available</p>
-        )}
-      </div>
+    <Container className="outer-cont">
+      <div className="container-home">
+        <LogoBox style={{ marginTop: "10px" }} className="custom-logo-box" />
+        <h1 className="titulo-home" color="secondary500">
+          Olá {playerId[0] + playerId.slice(1).toLowerCase()}!
+        </h1>
+        <div className="lista-de-salas">
+          <h1>Escolha uma sala:</h1>
+          {rooms.length > 0 ? (
+            <ul>
+              {rooms.map((room) => (
+                <li key={room._id}>
+                  <Link to={`/room/${room.name}`}>
+                    {/* Link englobando todo o elemento */}
+                    {room.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>Sem salas disponíveis</p>
+          )}
+        </div>
 
-      <Button kind="secondary" onClick={logout}>
-        Logout
-      </Button>
+        <CustomButton
+          style={{
+            margin: "10px",
+            padding: "8px 16px",
+          }}
+          className="logout-button-home"
+          kind="secondary"
+          onClick={logout}
+        >
+          Logout
+        </CustomButton>
+      </div>
     </Container>
   );
 }
